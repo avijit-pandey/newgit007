@@ -13,7 +13,7 @@ ip_Adrr =
 wifi.ap.setip(ip_Adrr)
 
 cfg={}
-cfg.ssid="iot_valve15"
+cfg.ssid="iot_valve18"
 cfg.pwd="elsi1234"  -- min. 8 char, factory set to macid
 
 wifi.ap.config(cfg)

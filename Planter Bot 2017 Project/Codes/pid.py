@@ -1,6 +1,4 @@
 import numpy as np
-import matplotlib
-from matplotlib import pyplot
 
 class PID:
 	"""
@@ -79,48 +77,22 @@ class PID:
 	def getDerivator(self):
 		return self.Derivator
 
+        def processPID(self,x,midpt_x):
+                k = -10
+                if x<(midpt_x-5):
+                        k = self.update(x)
+                        mode = 1
+              #pwm left=100-k right=100
+                elif x>(midpt_x+5):
+                        x=x*(-1)
+                        k = self.update(x)
+                        mode = 2
+              #pwm left=100 right=100-k
 
-p=PID(0.833,0,1)
-p.setPoint(120)
-p.setDerivator(119)
-if x>15:
-        k=p.update(x)
-        #pwm left=100-k right=100
-elif x<-15:
-        x=x*(-1)
-        k=p.update(x)
-        #pwm left=100 right=100-k
-
-elif x<15 and x>-15:
-        k=0
-else
-        #pwm left=0 righ=0
-#x2=[]
-#for x in range(1,240,1):
-#        print (x)
-#        k.append(p.update(x))
-#        print(p.set_point)
-#        x2.append(x)
-#        print(x,',',k)
-#print(x2)
-#print(k)
-#myplot=np.ones([len(k),len(x2)],np.float)*255
-#for i in range(0,len(k)-1):
-#        myplot[i,x2[i]]=k[i]
-
-
-#pyplot.plot(k)
-#pyplot.show()
-#p.update(2.75)
-
-#print(p.P_value)
-
-
-
-
-
-
-#while True:
-#     pid = p.update(measurement_value)
-#
-#
+                elif( x<(midpt_x+5) and x>(midpt_x-5)):
+                        k = 0
+                        mode = 0
+                else:
+                        k = -1
+                        mode = 3
+                return (k,mode)
